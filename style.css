@@ -17,6 +17,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  height: 25vh;
   padding: 25px;
   width: 25%;
   gap: 15px;

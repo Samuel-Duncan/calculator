@@ -40,7 +40,18 @@ const operatorBtns = document.querySelectorAll('.operator');
 operatorBtns.forEach((operatorBtn) => {
   operatorBtn.addEventListener('click', () => {
     const operatorText = operatorBtn.textContent;
-    firstNum = parseInt(displayArea.textContent);
+    if (!operator) {
+      // First operation
+      firstNum = parseInt(displayArea.textContent);
+    } else {
+      // Perform previous operation
+      const secondOperand = displayArea.textContent;
+      const secondOpClean = secondOperand.substring(1);
+      secondNum = parseInt(secondOpClean);
+      result = operate(firstNum, operator, secondNum);
+      displayArea.textContent = result;
+      firstNum = result; // Update firstNum with the result of the previous operation
+    }
     operator = operatorText;
     displayArea.textContent = '';
   });
@@ -49,11 +60,15 @@ operatorBtns.forEach((operatorBtn) => {
 // Get second number and display result
 const equalBtn = document.querySelector('.operate');
 equalBtn.addEventListener('click', () => {
+  if (secondNum === undefined) {
+    secondNum = parseInt(displayArea.textContent);
+  }
   const secondOperand = displayArea.textContent;
   const secondOpClean = secondOperand.substring(1);
   secondNum = parseInt(secondOpClean);
   result = operate(firstNum, operator, secondNum);
   displayArea.textContent = result;
+  firstNum = result;
 });
 
 // Populate display
@@ -70,4 +85,8 @@ displayBtns.forEach((displayBtn) => {
 const clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', () => {
   displayArea.textContent = '';
+  firstNum = undefined;
+  operator = undefined;
+  secondNum = undefined;
+  result = undefined;
 });
