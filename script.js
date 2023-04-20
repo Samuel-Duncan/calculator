@@ -103,7 +103,7 @@ displayBtns.forEach((displayBtn) => {
   displayBtn.addEventListener('click', () => {
     const buttonText = displayBtn.textContent;
     displayArea.textContent += buttonText;
-    checkDecimal();
+    if (displayArea.textContent.endsWith(Number)) { checkDecimal(); }
   });
 });
 
