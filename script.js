@@ -1,4 +1,20 @@
-// Functions for all of the basic math operations
+// Store input from user
+let firstNum = '';
+let operator = '';
+let secondNum = '';
+let result = '';
+
+// DOM Items
+const displayArea = document.getElementById('display');
+const displayBtns = document.querySelectorAll('.display-button');
+const operatorBtns = document.querySelectorAll('.operator');
+const equalBtn = document.querySelector('.operate');
+const clearBtn = document.querySelector('.clear');
+const numberBtns = document.querySelectorAll('.number');
+const deleteBtn = document.querySelector('.delete');
+const decimalBtn = document.querySelector('.decimal');
+
+// Functions for all of the math operations
 function add(a, b) {
   return a + b;
 }
@@ -15,78 +31,102 @@ function divide(a, b) {
   return a / b;
 }
 
-// Store input from user
-let firstNum;
-let operator;
-let secondNum;
-
-// Store result of operation
-let result;
-
-// Function that operates depending on the user input
+// Function that operates depending on user input
 function operate(num1, symbol, num2) {
-  if (symbol === '+') {
-    return add(num1, num2);
-  } if (symbol === '-') {
-    return subtract(num1, num2);
-  } if (symbol === '*') {
-    return multiply(num1, num2);
+  num1 = Number(num1);
+  num2 = Number(num2);
+  switch (symbol) {
+    case '+':
+      return add(num1, num2);
+    case '-':
+      return subtract(num1, num2);
+    case '*':
+      return multiply(num1, num2);
+    case '/':
+      return divide(num1, num2);
+    default:
+      return null;
   }
-  return divide(num1, num2);
 }
 
-// Get first number and operator
-const operatorBtns = document.querySelectorAll('.operator');
+// Operator buttons
 operatorBtns.forEach((operatorBtn) => {
   operatorBtn.addEventListener('click', () => {
-    const operatorText = operatorBtn.textContent;
-    if (!operator) {
-      // First operation
-      firstNum = parseInt(displayArea.textContent);
+    if (firstNum === '') {
+      firstNum = displayArea.textContent;
+      operator = operatorBtn.textContent;
+      displayArea.textContent = '';
+    } else if (firstNum && secondNum === '') {
+      secondNum = displayArea.textContent;
+      result = operate(firstNum, operator, secondNum);
+      operator = operatorBtn.textContent;
+      displayArea.textContent = result;
     } else {
-      // Perform previous operation
-      const secondOperand = displayArea.textContent;
-      const secondOpClean = secondOperand.substring(1);
-      secondNum = parseInt(secondOpClean);
+      firstNum = result;
+      secondNum = displayArea.textContent;
       result = operate(firstNum, operator, secondNum);
       displayArea.textContent = result;
-      firstNum = result; // Update firstNum with the result of the previous operation
+      operator = operatorBtn.textContent;
     }
-    operator = operatorText;
-    displayArea.textContent = '';
   });
 });
 
-// Get second number and display result
-const equalBtn = document.querySelector('.operate');
+// Equals button
 equalBtn.addEventListener('click', () => {
-  if (secondNum === undefined) {
-    secondNum = parseInt(displayArea.textContent);
+  if (secondNum === '') {
+    secondNum = displayArea.textContent;
+    result = operate(firstNum, operator, secondNum);
+    displayArea.textContent = result;
+  } else {
+    firstNum = result;
+    secondNum = displayArea.textContent;
+    result = operate(firstNum, operator, secondNum);
+    displayArea.textContent = result;
   }
-  const secondOperand = displayArea.textContent;
-  const secondOpClean = secondOperand.substring(1);
-  secondNum = parseInt(secondOpClean);
-  result = operate(firstNum, operator, secondNum);
-  displayArea.textContent = result;
-  firstNum = result;
+  firstNum = '';
+  operator = '';
+  secondNum = '';
+  result = '';
+});
+
+numberBtns.forEach((numberBtn) => {
+  numberBtn.addEventListener('click', () => {
+    const displayAreaText = displayArea.textContent;
+    if (displayAreaText.endsWith('+') || displayAreaText.endsWith('-') || displayAreaText.endsWith('*') || displayAreaText.endsWith('/')) {
+      displayArea.textContent = '';
+    }
+  });
 });
 
 // Populate display
-const displayBtns = document.querySelectorAll('.display-button');
-const displayArea = document.getElementById('display');
 displayBtns.forEach((displayBtn) => {
   displayBtn.addEventListener('click', () => {
     const buttonText = displayBtn.textContent;
     displayArea.textContent += buttonText;
+    checkDecimal();
   });
 });
 
+// Delete button
+deleteBtn.addEventListener('click', () => {
+  const displayAreaText = displayArea.textContent.slice(0, -1);
+  displayArea.textContent = displayAreaText;
+});
+
 // Clear display
-const clearBtn = document.querySelector('.clear');
 clearBtn.addEventListener('click', () => {
   displayArea.textContent = '';
-  firstNum = undefined;
-  operator = undefined;
-  secondNum = undefined;
-  result = undefined;
+  firstNum = '';
+  operator = '';
+  secondNum = '';
+  result = '';
 });
+
+// Avoid multiple decimals
+function checkDecimal() {
+  if (displayArea.textContent.includes('.')) {
+    decimalBtn.disabled = true;
+  } else {
+    decimalBtn.disabled = false;
+  }
+}

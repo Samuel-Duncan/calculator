@@ -1,5 +1,6 @@
 *{
-color: white;
+color: black;
+font-family: 'Castoro Titling', cursive;
 }
 
 body {
@@ -9,7 +10,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: gray;
+  gap: 20px;
+}
+
+h1 {
+  color: darkorange;
+  text-align: center;
+  font-size: 34px;
 }
 
 #container {
@@ -17,26 +25,50 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 25vh;
   padding: 25px;
   width: 25%;
-  gap: 15px;
-  background-color: white;
+  max-width: 300px;
+  min-width: 300px;
+  gap: 10px;
+  background-color: black;
   border-radius: 10px;
 }
 
-#btn {
+.display-button, .operate, .clear, .delete {
   flex-basis: calc(100% / 3 - 15px);
-  background-color: black;
-  font-size: 16px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 10px;
+  flex-grow: 1;
+}
+
+.operator {
+  flex-basis: calc(100% / 4 - 15px);
+  font-size: 22px;
 }
 
 #display {
   display: flex;
-  flex-basis: calc(100% - 25px);
-  font-size: 16px;
+  border-radius: 10px;
+  flex-basis: calc(100%);
+  font-size: 24px;
   border: 2px solid black;
-  height: 25px;
+  background-color: white;
+  height: 45px;
   align-items: center;
   padding: 5px;
+}
+
+.number {
+  background-color: rgb(178, 178, 178);
+}
+
+.operator, .clear, .operate, .delete, .decimal {
+  background-color: darkorange;
+}
+
+#container .number:nth-child(16), .operate {
+  flex-basis: calc(100%);
 }

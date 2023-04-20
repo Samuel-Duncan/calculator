@@ -5,13 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Castoro+Titling&display=swap" rel="stylesheet">
   <script src="script.js" defer></script>
   <title>Calculator Project</title>
 </head>
 <body>
-  <h1>CALCULATOR PROJECT</h1>
   <div id="container">
+    <h1>CALCULATOR</h1>
     <div id="display"></div>
+    <button id="btn" class="display-button operator">+</button>
+    <button id="btn" class="display-button operator">-</button>
+    <button id="btn" class="display-button operator">*</button>
+    <button id="btn" class="display-button operator">/</button>
     <button id="btn" class="display-button number">1</button>
     <button id="btn" class="display-button number">2</button>
     <button id="btn" class="display-button number">3</button>
@@ -22,12 +30,10 @@
     <button id="btn" class="display-button number">8</button>
     <button id="btn" class="display-button number">9</button>
     <button id="btn" class="display-button number">0</button>
-    <button id="btn" class="display-button operator">+</button>
-    <button id="btn" class="display-button operator">-</button>
-    <button id="btn" class="display-button operator">*</button>
-    <button id="btn" class="display-button operator">/</button>
-    <button id="btn" class="operate">=</button>
+    <button id="btn" class="display-button decimal">.</button>
+    <button id="btn" class="delete">Delete</button>
     <button id="btn" class="clear">Clear</button>
+    <button id="btn" class="operate">=</button>
   </div>
 </body>
 </html>
